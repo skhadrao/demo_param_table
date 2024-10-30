@@ -13,7 +13,7 @@ from css.change_button_color import ChangeButtonColour
 # Write directly to the app
 st.title("Config Management User Application:coffee:")
 st.write(
-    """Replace this example with your own code!
+    """Replace this example with your own CODE !
     **And if you're new to Streamlit and needs more help,** check
     out our easy-to-follow guides at
     [SG Streamlit Confluence](https://confluence.ids.saint-gobain.com/x/_4C1Dg).
