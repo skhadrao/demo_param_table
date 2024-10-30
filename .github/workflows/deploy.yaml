@@ -32,8 +32,8 @@ jobs:
       - name: 'Create config'
         shell: bash
         env:
-          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWCLI_PW }}
-          run: |
+        SNOWFLAKE_PASSWORD: ${{ secrets.SNOWCLI_PW }}
+        run: |
           mkdir -p ~/.snowflake
           cp config.toml ~/.snowflake/config.toml
           echo "password = \"$SNOWFLAKE_PASSWORD\"" >> ~/.snowflake/config.toml
