@@ -34,7 +34,7 @@ jobs:
         env:
           SNOWFLAKE_PASSWORD: ${{ secrets.SNOWCLI_PW }}
         run: |
-          echo pwd
+          echo $pwd
           mkdir -p ~/.snowflake
           cp config.toml ~/.snowflake/config.toml
           echo "hello"
