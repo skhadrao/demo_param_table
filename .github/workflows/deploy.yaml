@@ -1,47 +1,77 @@
-# Name the GitHub Action
-name: Deploy via Snowflake CLI
-
+name: Deploy
 on:
-  push:
-    branches:
-    - main
-
+    push:
+      branches:
+      - main
 env:
-  PYTHON_VERSION: '3.8'
-
+    SNOWFLAKE_DEFAULT_CONNECTION_NAME: "workflow"
+    SNOWFLAKE_CONNECTIONS_MYCONNECTION_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+    SNOWFLAKE_CONNECTIONS_MYCONNECTION_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+    GIT_REPO_DB: MY_GIT_REPOS
+    GIT_REPO_SCHEMA: GITHUB
+    GIT_REPO_NAME: snow_cli_demo
+    TODO_APP_NAME: todos_app
+    TODO_APP_WH: TODO_APP_WH
+    TODO_APP_DB: TODO_APP_DB
+    TODO_APP_SCHEMA: APPS
+    TODOS_DATA_SCHEMA: DATA
 jobs:
-  streamlit_build:
-    runs-on: ubuntu-latest
-    environment: dev
-    steps:
-    # Checks out your repository under $GITHUB_WORKSPACE, so your workflow can access it
-      - name: 'Checkout GitHub Action'
-        uses: actions/checkout@v3
+    Deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  # todo update to pick the right branch
+                  ref: ${{ env.GITHUB_REF_NAME  }}
+            - uses: Snowflake-Labs/snowflake-cli-action@v1.5
+              with:
+                  cli-version: "latest"
+                  default-config-file-path:
+                      ${{ github.workspace }}/config/config.toml
+            - name: Check Version and Verify Connection
+              env:
+                  SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+              run: |
+                  snow --version
+                  snow connection test
+                  echo "Using branch $GITHUB_REF_NAME"
 
-      - name: Install Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
+            - name: Refresh Repo
+              env:
+                  SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+                  GIT_REPO_FQN:
+                      ${{ env.GIT_REPO_DB }}.${{ env.GIT_REPO_SCHEMA }}.${{
+                      env.GIT_REPO_NAME }}
+              run: |
+                  snow git fetch "$GIT_REPO_FQN"
 
-      - name: 'Install Snowflake CLI'
-        shell: bash
-        run: |
-          python -m pip install --upgrade pip
-          pip install snowflake-cli-labs
+            - name: Setup Todos App Database Objects
+              env:
+                  SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+                  GIT_REPO_FQN:
+                      ${{ env.GIT_REPO_DB }}.${{ env.GIT_REPO_SCHEMA }}.${{
+                      env.GIT_REPO_NAME }}
+              run: |
+                  snow git execute @"${GIT_REPO_FQN}/branches/${GITHUB_REF_NAME}/de/" \
+                    --variable "db_name='$TODO_APP_DB'" \
+                    --variable "schema_name='$TODOS_DATA_SCHEMA'" \
+                    --variable "wh_name='$TODO_APP_WH'" \
+                    --variable "git_repo_name='$GIT_REPO_FQN'" \
+                    --variable "git_branch='$GITHUB_REF_NAME'" \
+                    --database $GIT_REPO_DB --schema $GIT_REPO_SCHEMA
 
-      - name: 'Create config'
-        shell: bash
-        env:
-          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWCLI_PW }}
-        run: |
-          echo $pwd
-          mkdir -p ~/.snowflake
-          cp config.toml ~/.snowflake/config.toml
-          echo "hello"
-          echo "password = \"$SNOWFLAKE_PASSWORD\"" >> ~/.snowflake/config.toml
-          chmod 0600 ~/.snowflake/config.toml
+            - name: Deploy TODOs Streamlit App
+              env:
+                  SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+              run: |
+                  snow streamlit deploy --replace \
+                  --database $TODO_APP_DB --schema $TODO_APP_SCHEMA
+              working-directory: app
 
-      - name: 'Deploy the Streamlit app'
-        shell: bash
-        run: |
-          snow streamlit deploy app_config --replace
+            - name: Get App URL
+              env:
+                  SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+              run: |
+                  snow streamlit get-url $TODO_APP_NAME \
+                    --database $TODO_APP_DB --schema $TODO_APP_SCHEMA
+              working-directory: app
