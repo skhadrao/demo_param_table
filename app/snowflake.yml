@@ -11,7 +11,7 @@ entities:
             name: <% ctx.env.TODO_APP_NAME %>
             database: <% ctx.env.TODO_APP_DB %>
             schema: <% ctx.env.TODO_APP_SCHEMA %>
-        main_file: streamlit_app.py
+        main_file: app_config.py
         query_warehouse: <% ctx.env.TODO_APP_WH %>
         stage: <% ctx.env.TODO_APP_NAME %>
         artifacts:
