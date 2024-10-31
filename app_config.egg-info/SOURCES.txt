@@ -4,8 +4,3 @@ app_config.egg-info/PKG-INFO
 app_config.egg-info/SOURCES.txt
 app_config.egg-info/dependency_links.txt
 app_config.egg-info/top_level.txt
-css/__init__.py
-css/change_button_color.py
-pages/__init__.py
-pages/admin_page.py
-pages/user_page.py

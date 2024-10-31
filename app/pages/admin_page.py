@@ -8,7 +8,6 @@ from helpers.fetch_audit_logs import fetch_audit_logs
 from helpers.fetch_user_connections import fetch_user_connections
 from helpers.update_value import update_value
 
-
 def admin_page(session):
    st.title("⚙️ Admin")
    user_id = st.session_state['user']
