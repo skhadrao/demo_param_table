@@ -11,7 +11,7 @@ env:
     GIT_REPO_DB: DEV_RAW_SANDBOX
     GIT_REPO_SCHEMA: STREAMLIT
     GIT_REPO_NAME: SNOW_CLI_STREAMLIT_DEMO
-    TODO_APP_NAME: todos_app
+    TODO_APP_NAME: demo_config_app
     TODO_APP_WH: WH_DEV_DATA_STREAMLIT
     TODO_APP_DB: DEV_RAW_SANDBOX
     TODO_APP_SCHEMA: STREAMLIT
@@ -47,20 +47,20 @@ jobs:
                   echo "Using branch $GIT_REPO_FQN"
                   snow git fetch "$GIT_REPO_FQN" --connection="SG"
 
-            - name: Setup Todos App Database Objects
-              env:
-                  SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-                  GIT_REPO_FQN:
-                      ${{ env.GIT_REPO_DB }}.${{ env.GIT_REPO_SCHEMA }}.${{
-                      env.GIT_REPO_NAME }}
-              run: |
-                  snow git execute @"${GIT_REPO_FQN}/branches/${GITHUB_REF_NAME}/de/" \
-                    --variable "db_name='$TODO_APP_DB'" \
-                    --variable "schema_name='$TODOS_DATA_SCHEMA'" \
-                    --variable "wh_name='$TODO_APP_WH'" \
-                    --variable "git_repo_name='$GIT_REPO_FQN'" \
-                    --variable "git_branch='$GITHUB_REF_NAME'" \
-                    --database $GIT_REPO_DB --schema $GIT_REPO_SCHEMA
+            # - name: Setup Todos App Database Objects
+            #   env:
+            #       SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+            #       GIT_REPO_FQN:
+            #           ${{ env.GIT_REPO_DB }}.${{ env.GIT_REPO_SCHEMA }}.${{
+            #           env.GIT_REPO_NAME }}
+            #   run: |
+            #       snow git execute @"${GIT_REPO_FQN}/branches/${GITHUB_REF_NAME}/de/" \
+            #         --variable "db_name='$TODO_APP_DB'" \
+            #         --variable "schema_name='$TODOS_DATA_SCHEMA'" \
+            #         --variable "wh_name='$TODO_APP_WH'" \
+            #         --variable "git_repo_name='$GIT_REPO_FQN'" \
+            #         --variable "git_branch='$GITHUB_REF_NAME'" \
+            #         --database $GIT_REPO_DB --schema $GIT_REPO_SCHEMA
                     
             - name: Deploy TODOs Streamlit App
               env:
