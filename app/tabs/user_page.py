@@ -18,7 +18,7 @@ def user_page(session):
    if st.button("Save Changes"):
        sync_changes_to_snowflake(session, edited_data, data, user_id)
        st.success("Changes saved to Snowflake!")
-       time.sleep(1) # Sleep for 3 seconds
+       time.sleep(1) # Sleep for 1 seconds
        st.experimental_rerun()
    st.subheader("Secure File Upload")
 
@@ -29,4 +29,5 @@ def user_page(session):
        if uploaded_file and st.button("Upload to the app !"):
            secure_upload(session, uploaded_file, user_id)
            st.session_state.show_upload = False
+           time.sleep(1) # Sleep for 1 seconds
            st.experimental_rerun()
