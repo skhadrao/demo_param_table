@@ -1,7 +1,0 @@
-[connections]
-[connections.streamlit]
-ACCOUNT = "test"
-USER = "test"
-PASSWORD = "test"
-WAREHOUSE = "test"
-ROLE = "test"
