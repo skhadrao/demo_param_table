@@ -17,10 +17,9 @@ entities:
         artifacts:
             - app_config.py
             - environment.yml
-            - pages/
+            - tabs/
             - helpers/
             - css/
-            - ../.streamlit/
             - ../config/
             - ../setup.py
             - ../.github/workflows 

@@ -4,8 +4,8 @@ from streamlit import session_state as ss
 import uuid
 from snowflake.snowpark.context import get_active_session
 from helpers.record_user_connection import record_user_connection
-from pages.admin_page import admin_page
-from pages.user_page import user_page
+from tabs.admin_page import admin_page
+from tabs.user_page import user_page
 from helpers.get_user_role import get_user_role
 from helpers.detect_user import detect_user
 from css.change_button_color import ChangeButtonColour
