@@ -15,7 +15,7 @@ entities:
         query_warehouse: <% ctx.env.TODO_APP_WH %>
         stage: <% ctx.env.TODO_APP_NAME %>
         artifacts:
-            - streamlit_app.py
+            - app_config.py
             - environment.yml
             - helpers/
             - pages/
