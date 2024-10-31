@@ -4,7 +4,7 @@ from streamlit import session_state as ss
 import uuid
 from snowflake.snowpark.context import get_active_session
 from helpers.record_user_connection import record_user_connection
-# from pages.admin_page import admin_page
+from pages.admin_page import admin_page
 from pages.user_page import user_page
 from helpers.get_user_role import get_user_role
 from helpers.detect_user import detect_user
@@ -43,8 +43,8 @@ def main():
        page = st.sidebar.selectbox("Go to", ["🏠 Home"])
    if page == "🏠 Home":
        user_page(session)
-#    elif page == "⚙️ Admin":
-#       admin_page(session)
+   elif page == "⚙️ Admin":
+      admin_page(session)
    # Apply custom CSS styles for header and button
    st.markdown(
    """
