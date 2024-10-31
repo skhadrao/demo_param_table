@@ -1,3 +1,8 @@
-[connections]
-[connections.myconnection]
-user = ""
+default_connection_name = "SG-IDS"
+
+[connections.SG-IDS]
+account = "SG-IDS"
+user = "S2448726"
+authenticator = "externalbrowser"
+database = "raw_dev_sandbox"
+schema = "streamlit"
