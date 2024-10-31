@@ -34,7 +34,7 @@ jobs:
               run: |
                   snow --version
                   snow connection test --connection="SG"
-                  echo "Using branch $GIT_REPO_DB"
+                  echo "Using branch $GITHUB_REF_NAME"
 
             - name: Refresh Repo
               env:
@@ -43,6 +43,7 @@ jobs:
                       ${{ env.GIT_REPO_DB }}.${{ env.GIT_REPO_SCHEMA }}.${{
                       env.GIT_REPO_NAME }}
               run: |
+                  echo "Using branch $GIT_REPO_FQN"
                   snow git fetch "$GIT_REPO_FQN"
 
             - name: Setup Todos App Database Objects
