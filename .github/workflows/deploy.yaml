@@ -9,7 +9,7 @@ env:
     SNOWFLAKE_CONNECTIONS_MYCONNECTION_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
     GIT_REPO_DB: DEV_RAW_SANDBOX
     GIT_REPO_SCHEMA: STREAMLIT
-    GIT_REPO_NAME: snow_cli_demo
+    GIT_REPO_NAME: SNOW_CLI_STREAMLIT_DEMO
     TODO_APP_NAME: todos_app
     TODO_APP_WH: WH_DEV_DATA_STREAMLIT
     TODO_APP_DB: DEV_RAW_SANDBOX
@@ -60,7 +60,7 @@ jobs:
                     --variable "git_repo_name='$GIT_REPO_FQN'" \
                     --variable "git_branch='$GITHUB_REF_NAME'" \
                     --database $GIT_REPO_DB --schema $GIT_REPO_SCHEMA
-
+                    
             - name: Deploy TODOs Streamlit App
               env:
                   SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
