@@ -1,7 +1,7 @@
 [connections]
-[connections.Dummy]
-SNOWFLAKE_ACCOUNT = "test"
-SNOWFLAKE_USER = "test"
-SNOWFLAKE_PASSWORD = "test"
-SNOWFLAKE_WAREHOUSE = "test"
-SNOWFLAKE_ROLE = "test"
+[connections.streamlit]
+ACCOUNT = "test"
+USER = "test"
+PASSWORD = "test"
+WAREHOUSE = "test"
+ROLE = "test"
