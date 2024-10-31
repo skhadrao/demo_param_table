@@ -1,6 +1,7 @@
 # Import python packages
 import streamlit as st
 from streamlit import session_state as ss
+import time
 from helpers.fetch_configuration_table import fetch_configuration_table
 from helpers.sync_changes_to_snowflake import sync_changes_to_snowflake
 from helpers.secure_upload import secure_upload
@@ -17,7 +18,8 @@ def user_page(session):
    if st.button("Save Changes"):
        sync_changes_to_snowflake(session, edited_data, data, user_id)
        st.success("Changes saved to Snowflake!")
-    #    st.experimental_rerun()
+       time.sleep(1) # Sleep for 3 seconds
+       st.experimental_rerun()
    st.subheader("Secure File Upload")
 
    if st.button("Click Here to bulk import",help="click to import"):
