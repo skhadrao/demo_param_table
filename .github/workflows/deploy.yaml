@@ -37,7 +37,7 @@ jobs:
                   snow connection test --connection="SG"
                   echo "Using branch $GITHUB_REF_NAME"
 
-            - name: Refresh Repo
+            - name: Refresh Repo sources
               env:
                   SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
                   GIT_REPO_FQN:
