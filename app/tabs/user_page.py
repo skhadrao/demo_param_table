@@ -17,7 +17,7 @@ def user_page(session):
    if st.button("Save Changes"):
        sync_changes_to_snowflake(session, edited_data, data, user_id)
        st.success("Changes saved to Snowflake!")
-       st.experimental_rerun()
+    #    st.experimental_rerun()
    st.subheader("Secure File Upload")
 
    if st.button("Click Here to bulk import",help="click to import"):
