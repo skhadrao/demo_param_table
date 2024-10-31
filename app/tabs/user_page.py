@@ -27,7 +27,12 @@ def user_page(session):
    if st.session_state.get("show_upload", False):
        uploaded_file = st.text_area("Paste the contents of your CSV file here")
        if uploaded_file and st.button("Upload to the app !"):
+           progress_text = "Operation in progress. Please wait."
+           my_bar = st.progress(0, text=progress_text)
            secure_upload(session, uploaded_file, user_id)
            st.session_state.show_upload = False
+           my_bar.progress(100, text=progress_text)
            time.sleep(1) # Sleep for 1 seconds
+           my_bar.empty()
+
            st.experimental_rerun()
