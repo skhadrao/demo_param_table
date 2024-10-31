@@ -17,3 +17,6 @@ entities:
         artifacts:
             - app_config.py
             - environment.yml
+            - ../pages/
+            - ../helpers/
+            - ../css/
