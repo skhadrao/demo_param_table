@@ -75,5 +75,5 @@ jobs:
                   SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
               run: |
                   snow streamlit get-url $TODO_APP_NAME \
-                    --database $TODO_APP_DB --schema $TODO_APP_SCHEMA
+                    --database $TODO_APP_DB --schema $TODO_APP_SCHEMA --connection="SG"
               working-directory: app
