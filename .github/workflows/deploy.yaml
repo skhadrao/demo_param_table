@@ -5,8 +5,8 @@ on:
       - main
 env:
     SNOWFLAKE_DEFAULT_CONNECTION_NAME: "workflow"
-    SNOWFLAKE_CONNECTIONS_MYCONNECTION_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
-    SNOWFLAKE_CONNECTIONS_MYCONNECTION_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+    SNOWFLAKE_CONNECTIONS_SG_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+    SNOWFLAKE_CONNECTIONS_SG_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
     GITHUB_REF_NAME: main
     GIT_REPO_DB: DEV_RAW_SANDBOX
     GIT_REPO_SCHEMA: STREAMLIT
@@ -31,7 +31,7 @@ jobs:
                       ${{ github.workspace }}/config/config.toml
             - name: Check Version and Verify Connection
               env:
-                  SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+                  SNOWFLAKE_CONNECTIONS_SG_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
               run: |
                   snow --version
                   snow connection test --connection="SG"
@@ -39,7 +39,7 @@ jobs:
 
             - name: Refresh Repo sources
               env:
-                  SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+                  SNOWFLAKE_CONNECTIONS_SG_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
                   GIT_REPO_FQN:
                       ${{ env.GIT_REPO_DB }}.${{ env.GIT_REPO_SCHEMA }}.${{
                       env.GIT_REPO_NAME }}
@@ -49,7 +49,7 @@ jobs:
 
             # - name: Setup App Database Objects
             #   env:
-            #       SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+            #       SNOWFLAKE_CONNECTIONS_SG_PASSWORD ${{ secrets.SNOWFLAKE_PASSWORD }}
             #       GIT_REPO_FQN:
             #           ${{ env.GIT_REPO_DB }}.${{ env.GIT_REPO_SCHEMA }}.${{
             #           env.GIT_REPO_NAME }}
@@ -64,7 +64,7 @@ jobs:
                     
             - name: Deploy config Streamlit Application
               env:
-                  SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+                  SNOWFLAKE_CONNECTIONS_SG_PASSWORD ${{ secrets.SNOWFLAKE_PASSWORD }}
               run: |
                   snow streamlit deploy --replace \
                   --database $APP_DB --schema $APP_SCHEMA --connection="SG"
@@ -72,7 +72,7 @@ jobs:
 
             - name: Get App URL
               env:
-                  SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+                  SNOWFLAKE_CONNECTIONS_SG_PASSWORD ${{ secrets.SNOWFLAKE_PASSWORD }}
               run: |
                   snow streamlit get-url $APP_NAME \
                     --database $APP_DB --schema $APP_SCHEMA --connection="SG"
