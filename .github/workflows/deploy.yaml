@@ -49,7 +49,7 @@ jobs:
 
             # - name: Setup App Database Objects
             #   env:
-            #       SNOWFLAKE_CONNECTIONS_SG_PASSWORD ${{ secrets.SNOWFLAKE_PASSWORD }}
+            #       SNOWFLAKE_CONNECTIONS_SG_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
             #       GIT_REPO_FQN:
             #           ${{ env.GIT_REPO_DB }}.${{ env.GIT_REPO_SCHEMA }}.${{
             #           env.GIT_REPO_NAME }}
@@ -64,7 +64,7 @@ jobs:
                     
             - name: Deploy config Streamlit Application
               env:
-                  SNOWFLAKE_CONNECTIONS_SG_PASSWORD ${{ secrets.SNOWFLAKE_PASSWORD }}
+                  SNOWFLAKE_CONNECTIONS_SG_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
               run: |
                   snow streamlit deploy --replace \
                   --database $APP_DB --schema $APP_SCHEMA --connection="SG"
@@ -72,7 +72,7 @@ jobs:
 
             - name: Get App URL
               env:
-                  SNOWFLAKE_CONNECTIONS_SG_PASSWORD ${{ secrets.SNOWFLAKE_PASSWORD }}
+                  SNOWFLAKE_CONNECTIONS_SG_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
               run: |
                   snow streamlit get-url $APP_NAME \
                     --database $APP_DB --schema $APP_SCHEMA --connection="SG"
