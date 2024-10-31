@@ -32,7 +32,7 @@ jobs:
       - name: 'Create config'
         shell: bash
         env:
-        SNOWFLAKE_PASSWORD: ${{ secrets.SNOWCLI_PW }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWCLI_PW }}
         run: |
           mkdir -p ~/.snowflake
           cp config.toml ~/.snowflake/config.toml
