@@ -15,8 +15,12 @@ entities:
         query_warehouse: <% ctx.env.APP_WH %>
         stage: <% ctx.env.APP_NAME %>
         artifacts:
-            - app/app_config.py
-            - app/environment.yml
-            - app/pages/
-            - app/helpers/
-            - app/css/
+            - app_config.py
+            - environment.yml
+            - pages/
+            - helpers/
+            - css/
+            - ../config/
+            - ../config.toml
+            - ../setup.py
+            - ../.github/workflows 
