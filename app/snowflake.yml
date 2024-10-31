@@ -22,6 +22,5 @@ entities:
             - css/
             - .streamlit/
             - ../config/
-            - ../config.toml
             - ../setup.py
             - ../.github/workflows 
