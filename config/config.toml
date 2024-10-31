@@ -2,7 +2,7 @@ default_connection_name = "SG-IDS"
 
 [connections.SG-IDS]
 account = "SG-IDS"
-user = "S2448726"
-authenticator = "externalbrowser"
+user = "svc_dev_data_streamlit"
+password = "sSTREAMLIT2024!"
 database = "raw_dev_sandbox"
 schema = "streamlit"
