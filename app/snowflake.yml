@@ -20,7 +20,7 @@ entities:
             - pages/
             - helpers/
             - css/
-            - .streamlit/
+            - ../.streamlit/
             - ../config/
             - ../setup.py
             - ../.github/workflows 

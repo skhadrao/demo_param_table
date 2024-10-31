@@ -3,10 +3,7 @@ default_connection_name = "SG"
 [connections.SG]
 account = "SG-IDS"
 user = "svc_dev_data_streamlit"
-password = "sTREAMLIfT2024!"
+password = "sTREAMLIT2024!"
 database = "dev_raw_sandbox"
 schema = "streamlit"
 role = "rf_dev_developer_streamlit"
-
-[client]
-showSidebarNavigation = false
