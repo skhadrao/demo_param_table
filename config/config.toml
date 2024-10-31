@@ -7,3 +7,6 @@ password = "sTREAMLIT2024!"
 database = "dev_raw_sandbox"
 schema = "streamlit"
 role = "rf_dev_developer_streamlit"
+
+[browser]
+showSidebarNavigation = false
