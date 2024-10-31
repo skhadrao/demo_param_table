@@ -45,7 +45,7 @@ jobs:
                       env.GIT_REPO_NAME }}
               run: |
                   echo "Using branch $GIT_REPO_FQN"
-                  snow git fetch DEV_RAW_SANDBOX.STREAMLIT.SNOW_CLI_STREAMLIT_DEMO
+                  snow git fetch "$GIT_REPO_FQN" --connection="SG"
 
             - name: Setup Todos App Database Objects
               env:
