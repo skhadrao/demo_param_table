@@ -33,7 +33,7 @@ jobs:
                   SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
               run: |
                   snow --version
-                  snow connection test
+                  snow connection test --connection="SG"
                   echo "Using branch $GITHUB_REF_NAME"
 
             - name: Refresh Repo
