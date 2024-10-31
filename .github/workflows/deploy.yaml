@@ -11,11 +11,11 @@ env:
     GIT_REPO_DB: DEV_RAW_SANDBOX
     GIT_REPO_SCHEMA: STREAMLIT
     GIT_REPO_NAME: SNOW_CLI_STREAMLIT_DEMO
-    TODO_APP_NAME: demo_config_app
-    TODO_APP_WH: WH_DEV_DATA_STREAMLIT
-    TODO_APP_DB: DEV_RAW_SANDBOX
-    TODO_APP_SCHEMA: STREAMLIT
-    TODOS_DATA_SCHEMA: STREAMLIT
+    APP_NAME: demo_config_app
+    APP_WH: WH_DEV_DATA_STREAMLIT
+    APP_DB: DEV_RAW_SANDBOX
+    APP_SCHEMA: STREAMLIT
+    DATA_SCHEMA: STREAMLIT
 jobs:
     Deploy:
         runs-on: ubuntu-latest
@@ -47,7 +47,7 @@ jobs:
                   echo "Using branch $GIT_REPO_FQN"
                   snow git fetch "$GIT_REPO_FQN" --connection="SG"
 
-            # - name: Setup Todos App Database Objects
+            # - name: Setup App Database Objects
             #   env:
             #       SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
             #       GIT_REPO_FQN:
@@ -55,25 +55,25 @@ jobs:
             #           env.GIT_REPO_NAME }}
             #   run: |
             #       snow git execute @"${GIT_REPO_FQN}/branches/${GITHUB_REF_NAME}/de/" \
-            #         --variable "db_name='$TODO_APP_DB'" \
-            #         --variable "schema_name='$TODOS_DATA_SCHEMA'" \
-            #         --variable "wh_name='$TODO_APP_WH'" \
+            #         --variable "db_name='$APP_DB'" \
+            #         --variable "schema_name='$DATA_SCHEMA'" \
+            #         --variable "wh_name='$APP_WH'" \
             #         --variable "git_repo_name='$GIT_REPO_FQN'" \
             #         --variable "git_branch='$GITHUB_REF_NAME'" \
             #         --database $GIT_REPO_DB --schema $GIT_REPO_SCHEMA
                     
-            - name: Deploy TODOs Streamlit App
+            - name: Deploy config Streamlit Application
               env:
                   SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
               run: |
                   snow streamlit deploy --replace \
-                  --database $TODO_APP_DB --schema $TODO_APP_SCHEMA --connection="SG"
+                  --database $APP_DB --schema $APP_SCHEMA --connection="SG"
               working-directory: app
 
             - name: Get App URL
               env:
                   SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
               run: |
-                  snow streamlit get-url $TODO_APP_NAME \
-                    --database $TODO_APP_DB --schema $TODO_APP_SCHEMA --connection="SG"
+                  snow streamlit get-url $APP_NAME \
+                    --database $APP_DB --schema $APP_SCHEMA --connection="SG"
               working-directory: app
