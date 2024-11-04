@@ -10,11 +10,13 @@ from tabs.user_page import user_page
 from helpers.get_user_role import get_user_role
 from helpers.detect_user import detect_user
 from css.change_button_color import ChangeButtonColour
+from streamlit_extras.app_logo import add_logo
 
 
 # Manage page navigation
 def main():
-   
+    
+   add_logo("assets/logo.png", height=60)
    # List of admin roles
    # Write directly to the app
    st.title("Config Management User Application:coffee:")
