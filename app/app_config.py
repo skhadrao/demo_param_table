@@ -3,6 +3,7 @@ import streamlit as st
 from streamlit import session_state as ss
 import uuid
 from snowflake.snowpark.context import get_active_session
+from streamlit_extras.stylable_container import stylable_container
 from helpers.record_user_connection import record_user_connection
 from tabs.admin_page import admin_page
 from tabs.user_page import user_page
@@ -24,6 +25,7 @@ def main():
        [SG Streamlit Confluence](https://confluence.ids.saint-gobain.com/x/_4C1Dg).
        """
        )
+
    # Get the current credentials
    session = get_active_session()
    st.session_state['user'] = detect_user()
@@ -38,34 +40,34 @@ def main():
    user_role = get_user_role(session).strip('"\'')
    # Only show the admin page link if the user is an admin
    if user_role in ADMIN_ROLES:
-       page = st.sidebar.selectbox("Go to", ["🏠 Home", "⚙️ Admin"])
+       page = st.sidebar.selectbox("Go to", ["📜 Home", "⚙️ Admin"])
    else:
-       page = st.sidebar.selectbox("Go to", ["🏠 Home"])
-   if page == "🏠 Home":
+       page = st.sidebar.selectbox("Go to", ["📜 Home"])
+   if page == "📜 Home":
        user_page(session)
    elif page == "⚙️ Admin":
       admin_page(session)
    # Apply custom CSS styles for header and button
-   st.markdown(
-   """
-   <style>
-   /* Style for the data_editor header columns */
-   .stDataFrame thead {
-       background-color: #007BFF !important;  /* Blue background */
-       font-style: italic !important;          /* Italic text */
-       color: white !important;                /* White text */
-   }
-   </style>
-   """,
-   unsafe_allow_html=True
-   )
+#    st.markdown(
+#    """
+#    <style>
+#    /* Style for the data_editor header columns */
+#    .stDataFrame thead {
+#        background-color: #007BFF !important;  /* Blue background */
+#        font-style: italic !important;          /* Italic text */
+#        color: white !important;                /* White text */
+#    }
+#    </style>
+#    """,
+#    unsafe_allow_html=True
+#    )
    # cols = st.columns(4)
    # cols[0].button('first button', key='b1')
    # cols[1].button('second button', key='b2')
    # cols[2].button('third button', key='b3')
    # cols[3].button('fourth button', key='b4')
-   ChangeButtonColour('Save Changes', 'black', '#28a745') # button txt to find, colour to assign
-   ChangeButtonColour('Reset', '#c19af5', '#354b75') # button txt to find, colour to assign
+#    ChangeButtonColour('Save Changes', 'black', '#28a745') # button txt to find, colour to assign
+#    ChangeButtonColour('Reset', '#c19af5', '#354b75') # button txt to find, colour to assign
     
 if __name__ == "__main__":
    main()
