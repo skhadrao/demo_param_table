@@ -5,7 +5,7 @@ env:
     APP_SCHEMA: STREAMLIT
     APP_WH: WH_DEV_DATA_STREAMLIT
 entities:
-    todos_app:
+    app:
         type: streamlit
         identifier:
             name: <% ctx.env.APP_NAME %>
@@ -19,6 +19,7 @@ entities:
             - environment.yml
             - tabs/
             - helpers/
+            - assets/
             - css/
             - ../config/
             - ../setup.py

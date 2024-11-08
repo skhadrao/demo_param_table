@@ -1,5 +1,6 @@
 # Import python packages
 import streamlit as st
+import logging
 from streamlit import session_state as ss
 import uuid
 from snowflake.snowpark.context import get_active_session
@@ -9,13 +10,19 @@ from tabs.admin_page import admin_page
 from tabs.user_page import user_page
 from helpers.get_user_role import get_user_role
 from helpers.detect_user import detect_user
-from css.change_button_color import ChangeButtonColour
+from helpers.change_button_color import ChangeButtonColour
 from streamlit_extras.app_logo import add_logo
+from helpers.local_css import local_css
+from helpers.footer import footer
+import time
 
+
+# create logger object 
+logger = logging.getLogger("simple_logger")
 
 # Manage page navigation
 def main():
-    
+
    add_logo("assets/logo.png", height=60)
    # List of admin roles
    # Write directly to the app
@@ -30,6 +37,7 @@ def main():
 
    # Get the current credentials
    session = get_active_session()
+#    st.write(session.get_current_role())
    st.session_state['user'] = detect_user()
    record_user_connection(session, st.session_state['user'])
    # Create de key
@@ -50,26 +58,14 @@ def main():
    elif page == "⚙️ Admin":
       admin_page(session)
    # Apply custom CSS styles for header and button
-#    st.markdown(
-#    """
-#    <style>
-#    /* Style for the data_editor header columns */
-#    .stDataFrame thead {
-#        background-color: #007BFF !important;  /* Blue background */
-#        font-style: italic !important;          /* Italic text */
-#        color: white !important;                /* White text */
-#    }
-#    </style>
-#    """,
-#    unsafe_allow_html=True
-#    )
-   # cols = st.columns(4)
-   # cols[0].button('first button', key='b1')
-   # cols[1].button('second button', key='b2')
-   # cols[2].button('third button', key='b3')
-   # cols[3].button('fourth button', key='b4')
+   local_css("css/datafram_editor.css")
+#    local_css("css/sidebar.css")
+   
 #    ChangeButtonColour('Save Changes', 'black', '#28a745') # button txt to find, colour to assign
 #    ChangeButtonColour('Reset', '#c19af5', '#354b75') # button txt to find, colour to assign
+#add footer
+   file_path = "/tmp/appRoot/assets/logo.png"
+   footer(session, file_path)
     
 if __name__ == "__main__":
    main()

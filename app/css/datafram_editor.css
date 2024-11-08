@@ -1,0 +1,9 @@
+/* Style for the data_editor header columns */
+.stDataFrame thead {
+    background-color: #007BFF !important;
+    /* Blue background */
+    font-style: italic !important;
+    /* Italic text */
+    color: white !important;
+    /* White text */
+}

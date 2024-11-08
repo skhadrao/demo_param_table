@@ -10,6 +10,6 @@ role = "rf_dev_developer_streamlit"
 
 [theme]
 primaryColor="#2962ff"
-backgroundColor="#131722"
-secondaryBackgroundColor="#0c0e15"
+backgroundColor="#12868a"
+secondaryBackgroundColor="#12868a"
 textColor="#f6f6f6"

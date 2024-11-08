@@ -10,17 +10,21 @@ def secure_upload(session, file_contents, user_id):
    progress_text = "Operation in progress. Please wait."
    my_bar = st.progress(0, text=progress_text)
    # stage_path = f"@SK_SNOWPARK_TEMP/{user_id}_upload_{datetime.now().strftime('%Y%m%d%H%M%S')}.csv"
-   schema = StructType([StructField("id", IntegerType()), StructField("column1", StringType()), StructField("column3", StringType()), StructField("column3", StringType()), StructField("column4", StringType()), StructField("date_last_edited", TimestampType()), StructField("edit_type", StringType())])
+   schema = StructType([StructField("id", IntegerType()), StructField("user name", StringType()), StructField("first name", StringType()), StructField("last name", StringType()), StructField("department", StringType()), StructField("role", StringType()), StructField("table name", StringType()), StructField("query", StringType()), StructField("date_last_edited", TimestampType()), StructField("edit_type", StringType())])
    upload_file_df = session.create_dataframe(pd.read_csv(StringIO(file_contents), sep=";", dtype={
     'id': 'int64',
-    'column1': 'string',
-    'column2': 'string',
-    'column3': 'string',
-    'column4': 'string',
+    'user name': 'string',
+    'first name': 'string',
+    'last name': 'string',
+    'department': 'string',
+    'role': 'string',
+    'table name': 'string',
+    'query': 'string',
     'date_last_edited': 'string',
     'edit_type': 'string'}, parse_dates=['DATE_LAST_EDITED']), schema)
    pandas_df = upload_file_df.to_pandas()
    duplicated_id = pandas_df.duplicated(subset=['ID'])
+
    if not duplicated_id.any():
       upload_file_df.write.mode("truncate").save_as_table("configuration")
       session.sql(f"UPDATE configuration SET edit_type = 'insert'").collect();
